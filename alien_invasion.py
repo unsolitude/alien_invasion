@@ -3,8 +3,6 @@ import pygame
 from settings import Settings
 from bullet import Bullet
 from ship import Ship
-import os
-os.chdir('d:/coding app/code/练习/pygame')  # 切换到正确的工作目录
 
 class Alien_Invasion:
     '''管理游戏和资源的类'''
