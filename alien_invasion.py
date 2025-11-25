@@ -1,8 +1,8 @@
 import sys
 import pygame
-from settings import Settings
-from bullet import Bullet
-from ship import Ship
+from src.settings import Settings
+from src.bullet import Bullet
+from src.ship import Ship
 
 class Alien_Invasion:
     '''管理游戏和资源的类'''
