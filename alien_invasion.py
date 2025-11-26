@@ -3,6 +3,7 @@ import pygame
 from src.settings import Settings
 from src.bullet import Bullet
 from src.ship import Ship
+from src.alien import Alien
 
 class Alien_Invasion:
     '''管理游戏和资源的类'''
@@ -17,6 +18,9 @@ class Alien_Invasion:
         self.bg_color = (230,230,230)
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
+
+        self._create_fleet()
 
     def run_game(self):
         '''开始游戏主循环'''
@@ -72,6 +76,7 @@ class Alien_Invasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.ship.blitme()
+        self.aliens.draw(self.screen)
         pygame.display.flip()
 
     def _fire_bullet(self):
@@ -79,6 +84,31 @@ class Alien_Invasion:
         if len(self.bullets) < self.settings.bullet_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+
+    def _create_fleet(self):
+        """创建一个外形舰队"""
+        alien = Alien(self)
+        alien_width,alien_height = alien.rect.size
+        #外星人的间距为外星人的宽度
+        current_x,current_y = alien_width,alien_height
+        while current_y < (self.settings.screen_height - 3 * alien_height):
+            while current_x < (self.settings.screen_width - 2 * alien_width):
+                self._create_alien(current_x,current_y)
+                self.aliens.add(alien)
+                current_x += 2 * alien_width
+            current_y += 2 * alien_height
+            current_x = alien_width
+
+
+    def _create_alien(self,x_position,y_position):
+        """创建一个外星人并将其放在当前行中"""
+        new_alien = Alien(self)
+        new_alien.x = x_position
+        new_alien.rect.x = x_position
+        new_alien.rect.y = y_position
+        self.aliens.add(new_alien)  
+
+
 
 if __name__ == '__main__':
     #创建游戏实例并运行游戏
