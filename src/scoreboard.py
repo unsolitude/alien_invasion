@@ -1,5 +1,6 @@
 import pygame.font
 from src.ship import Ship
+from pygame.sprite import Group
 
 class Scoreboard:
     """显示得分信息的类"""
@@ -56,6 +57,12 @@ class Scoreboard:
 
     def prep_ships(self):
         """显示还有几艘飞船"""
+        self.ships = Group()
+        for ship_number in range(self.stats.ships_left):
+            ship = Ship(self.ai_game)
+            ship.rect.x = 10 + ship_number * ship.rect.width
+            ship.rect.y = 10
+            self.ships.add(ship)
 
 
     def show_score(self):
@@ -63,6 +70,7 @@ class Scoreboard:
         self.screen.blit(self.score_image,self.score_rect)
         self.screen.blit(self.high_score_image,self.high_score_rect)
         self.screen.blit(self.level_image,self.level_rect)
+        self.ships.draw(self.screen)
 
     def check_high_score(self):
         """检查是否诞生了新的最高分"""
