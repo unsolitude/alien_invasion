@@ -1,5 +1,16 @@
 import pygame
 from pygame.sprite import Sprite
+import os
+import sys
+
+def resource_path(relative_path):
+    """获取资源文件的绝对路径,支持 PyInstaller 打包"""
+    try:
+        # PyInstaller 创建临时文件夹,将路径存储在 _MEIPASS 中
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 class Alien (Sprite):
     """表示单个外星人的类"""
@@ -8,7 +19,7 @@ class Alien (Sprite):
         self.screen = ai_game.screen
         self.settings = ai_game.settings
         #加载外星人图像并设置其rect属性
-        self.image = pygame.image.load('images/alien.bmp')
+        self.image = pygame.image.load(resource_path('images/alien.bmp'))
         self.rect = self.image.get_rect()
 
         #每个外星人最初都在屏幕的左上角附近

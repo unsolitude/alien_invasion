@@ -211,7 +211,7 @@ class Alien_Invasion:
         """响应飞船与外星人的碰撞"""
         print("ship hit!")
         #将生命值减一
-        if self.stats.ships_left > 0:
+        if self.stats.ships_left > 1:
             self.stats.ships_left -= 1
             self.sb.prep_ships()
             #清空外星人和子弹
