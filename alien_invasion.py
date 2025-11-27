@@ -67,6 +67,7 @@ class Alien_Invasion:
             self.stats.reset_stats()
             self.sb.prep_score()
             self.sb.prep_level()
+            self.sb.prep_ships()
 
     def _start_game(self):
         self.stats.reset_stats()
@@ -212,6 +213,7 @@ class Alien_Invasion:
         #将生命值减一
         if self.stats.ships_left > 0:
             self.stats.ships_left -= 1
+            self.sb.prep_ships()
             #清空外星人和子弹
             self.bullets.empty()
             self.aliens.empty()
